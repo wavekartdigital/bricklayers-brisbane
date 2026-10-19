@@ -15,11 +15,14 @@ const types = {
 http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split('?')[0]);
   // PHP isn't available locally: fake the API so forms can be tested end to end.
-  if (p === '/api/quote.php' && req.method === 'POST') {
-    let size = 0;
-    req.on('data', (c) => { size += c.length; });
+  // Same for Netlify Forms, which posts to "/".
+  if (req.method === 'POST' && (p === '/api/quote.php' || p === '/' || p === '/index.html')) {
+    let body = '';
+    req.on('data', (c) => { body += c.toString('latin1'); });
     req.on('end', () => {
-      console.log(`[form] POST /api/quote.php (${size} bytes): demo mode, no email sent`);
+      const fields = [...body.matchAll(/name="([^"]+)"(?:; filename="([^"]*)")?\r\n(?:Content-Type: [^\r]+\r\n)?\r\n([^\r]*)/g)]
+        .filter((m) => m[2] || m[3]).map((m) => (m[2] ? `${m[1]}=[file ${m[2]}]` : `${m[1]}=${m[3].slice(0, 40)}`));
+      console.log(`[form] POST ${p} (${body.length} bytes): demo mode, no email sent\n  ${fields.join('\n  ')}`);
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ ok: true, demo: true }));
     });

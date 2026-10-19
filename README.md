@@ -29,7 +29,18 @@ Anything in `[square brackets]` shows with an amber highlight on the page. Repla
 
 Once `rating` and `reviewCount` are real numbers, `aggregateRating` is added to the LocalBusiness schema automatically.
 
-## Go-live checklist
+## Hosting on Netlify (current setup)
+`netlify.toml` builds the pages and publishes `site/`. `formProvider: 'netlify'` in `src/data.js` makes both forms use **Netlify Forms** (`quote` and `callback`).
+- **Turn on form detection:** Netlify → Site → Forms → *Enable form detection*, then redeploy.
+- **Business email for each inquiry:** Site configuration → Notifications → Emails and webhooks → *Form submission notifications* → add an email notification for each form, `quote` and `callback`. Uploaded photos/plans appear as links.
+- **Customer confirmation email:** `netlify/functions/submission-created.js` sends it through [Resend](https://resend.com). Set `RESEND_API_KEY`, `FROM_EMAIL` (on a domain verified in Resend) and `BUSINESS_EMAIL` under Site configuration → Environment variables. Without the key, no confirmation is sent; inquiries still arrive.
+- **Spam:** Netlify's spam filter + the honeypot field. Spam goes to the Forms → *Spam* tab.
+- **Uploads:** up to 5 files, 8MB total (Netlify's limit).
+- **Not on Netlify:** `api/*.php` (blocked). Google reviews stay as sample cards until a reviews feed is added.
+
+To move to a PHP host instead, set `formProvider: 'php'` and rebuild.
+
+## Go-live checklist (PHP host)
 - **Hosting:** any PHP 8+ host (the current WordPress host works). Upload `site/` to the web root.
 - **Email:** set `api/config.php` → `business_email`, `from_email` (must be on your domain with SPF/DKIM set up). For best deliverability, swap `mail()` for SMTP (PHPMailer or your host's SMTP).
 - **Leads backup:** every submission is also logged to `api/storage/leads.csv` (blocked from the web).

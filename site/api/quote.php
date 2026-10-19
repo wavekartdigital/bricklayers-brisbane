@@ -71,7 +71,7 @@ $serviceNames = [
 ];
 $services = array_values(array_filter(array_map(
     fn($s) => $serviceNames[(string) $s] ?? null,
-    (array) ($_POST['services'] ?? [])
+    array_map('trim', explode(',', (string) ($_POST['services'] ?? ''))) // JS sends "slug-a, slug-b"
 )));
 
 $errors = [];
@@ -124,16 +124,19 @@ $rows = array_filter($rows, fn($v) => $v !== '');
 // ── Attachments ──
 $attachments = [];
 $saved = [];
-if (!empty($_FILES['attachments']) && is_array($_FILES['attachments']['name'])) {
+// Files arrive as attachment1, attachment2, … (one per field, matching Netlify Forms).
+$uploads = array_filter($_FILES, fn($k) => preg_match('/^attachment\d+$/', (string) $k), ARRAY_FILTER_USE_KEY);
+if ($uploads) {
     $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/heic', 'image/heif', 'application/pdf'];
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $total = 0;
     $uploadDir = $storage . '/uploads/' . date('Ymd-His') . '-' . bin2hex(random_bytes(3));
-    foreach ($_FILES['attachments']['name'] as $i => $orig) {
+    foreach ($uploads as $up) {
         if (count($attachments) + count($saved) >= $cfg['max_files']) { break; }
-        if ($_FILES['attachments']['error'][$i] !== UPLOAD_ERR_OK) { continue; }
-        $tmp  = $_FILES['attachments']['tmp_name'][$i];
-        $size = (int) $_FILES['attachments']['size'][$i];
+        if ($up['error'] !== UPLOAD_ERR_OK) { continue; }
+        $orig = $up['name'];
+        $tmp  = $up['tmp_name'];
+        $size = (int) $up['size'];
         $mime = $finfo->file($tmp) ?: '';
         if (!in_array($mime, $allowed, true) || $size > $cfg['max_file_mb'] * 1048576) { continue; }
         $safe = preg_replace('/[^A-Za-z0-9._-]+/', '_', basename((string) $orig)) ?: 'file';

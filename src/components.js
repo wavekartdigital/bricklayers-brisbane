@@ -180,12 +180,22 @@ const group = (legend, inner, { req = false } = {}) => `
 const spamFields = `
   <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
   <input type="hidden" name="form_started" value="">
-  <input type="hidden" name="recaptcha_token" value="">`;
+  <input type="hidden" name="recaptcha_token" value="">
+  <input type="hidden" name="page" value="">`;
+
+// Netlify Forms only stores fields that exist in the deployed HTML, so every
+// field the JS sends (incl. attachment1..N) must be in the markup.
+const MAX_FILES = 5;
+const formAttrs = (name) => (site.formProvider === 'netlify'
+  ? `name="${name}" method="POST" data-netlify="true" netlify-honeypot="company_website"`
+  : `data-endpoint="${site.formEndpoint}"`);
+const formName = (name) => (site.formProvider === 'netlify' ? `<input type="hidden" name="form-name" value="${name}">` : '');
 
 const allSuburbs = () => require('./data').areas.flatMap(([, s]) => s).sort();
 
 const quoteForm = (preselect = '') => `
-  <form class="quote-form" id="quote-form" novalidate data-endpoint="${site.formEndpoint}" enctype="multipart/form-data">
+  <form class="quote-form" id="quote-form" novalidate ${formAttrs('quote')} enctype="multipart/form-data">
+    ${formName('quote')}
     <div class="qf-progress" aria-hidden="true">
       <div class="qf-bar"><span></span></div>
       <ol class="qf-steps"><li class="on">Your Project</li><li>Details</li><li>Timing &amp; Budget</li><li>Your Details</li></ol>
@@ -196,8 +206,8 @@ const quoteForm = (preselect = '') => `
       <h3>What can we help you with?</h3>
       ${group('Service required: select all that apply', `
         <div class="svc-cards">
-          ${services.map((s) => `<label class="svc-card"><input type="checkbox" name="services[]" value="${s.slug}"${s.slug === preselect ? ' checked' : ''} data-group-required>${icon(s.icon)}<span>${esc(s.name)}</span></label>`).join('')}
-          <label class="svc-card"><input type="checkbox" name="services[]" value="other" data-group-required>${icon('plus')}<span>Other</span></label>
+          ${services.map((s) => `<label class="svc-card"><input type="checkbox" name="services" value="${s.slug}"${s.slug === preselect ? ' checked' : ''} data-group-required>${icon(s.icon)}<span>${esc(s.name)}</span></label>`).join('')}
+          <label class="svc-card"><input type="checkbox" name="services" value="other" data-group-required>${icon('plus')}<span>Other</span></label>
         </div>`, { req: true })}
       ${group('Project type', pills('project_type', ['Residential', 'Commercial', 'New Build', 'Renovation', 'Repair'], { required: true }), { req: true })}
       ${group('Property type', pills('property_type', ['House', 'Townhouse', 'Unit', 'Commercial', 'Vacant Land'], { required: true }), { req: true })}
@@ -222,9 +232,10 @@ const quoteForm = (preselect = '') => `
         <div class="dropzone" tabindex="0" role="button" aria-label="Upload photos or plans: drag and drop or press to browse">
           ${icon('upload')}
           <p><b>Drag &amp; drop</b> photos or plans here, or <u>browse</u></p>
-          <small>JPG, PNG, HEIC or PDF · up to 10 files · 10MB each</small>
-          <input type="file" name="attachments[]" multiple accept="image/*,.pdf,application/pdf" hidden>
+          <small>JPG, PNG, HEIC or PDF · up to ${MAX_FILES} files · 8MB total</small>
+          <input type="file" class="dz-picker" multiple accept="image/*,.pdf,application/pdf" hidden>
         </div>
+        ${Array.from({ length: MAX_FILES }, (_, i) => `<input type="file" name="attachment${i + 1}" hidden tabindex="-1" aria-hidden="true">`).join('')}
         <ul class="file-list" aria-live="polite"></ul>`)}
     </section>
 
@@ -276,14 +287,15 @@ const quoteForm = (preselect = '') => `
   </form>`;
 
 const quickForm = (idp = 'qq', dark = false) => `
-  <form class="quick-form${dark ? ' on-dark' : ''}" data-endpoint="${site.formEndpoint}" novalidate>
+  <form class="quick-form${dark ? ' on-dark' : ''}" ${formAttrs('callback')} novalidate>
+    ${formName('callback')}
     <input type="hidden" name="form_type" value="quick">
     <label class="sr-only" for="${idp}-name">Name</label>
     <input id="${idp}-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
     <label class="sr-only" for="${idp}-phone">Phone</label>
     <input id="${idp}-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Phone number" required pattern="^(\\+?61|0)[2-478](?:[ -]?\\d){8}$">
     <label class="sr-only" for="${idp}-svc">Service</label>
-    <select id="${idp}-svc" name="services[]" required>
+    <select id="${idp}-svc" name="services" required>
       <option value="">Service needed…</option>
       ${services.map((s) => `<option value="${s.slug}">${esc(s.name)}</option>`).join('')}
       <option value="other">Other</option>
@@ -433,7 +445,7 @@ const crumbSchema = (crumbs) => ({
 const jsonld = (o) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, '\\u003c')}</script>`;
 
 const clientConfig = () => ({
-  phone: site.phone, phoneIntl: site.phoneIntl, formEndpoint: site.formEndpoint, reviewsEndpoint: site.reviewsEndpoint,
+  phone: site.phone, phoneIntl: site.phoneIntl, formProvider: site.formProvider, formEndpoint: site.formEndpoint, maxFiles: MAX_FILES, reviewsEndpoint: site.reviewsEndpoint,
   mapsKey: site.mapsKey, recaptchaSiteKey: site.recaptchaSiteKey,
   serviceNames: Object.fromEntries(services.map((s) => [s.slug, s.name])),
   serviceCats: Object.fromEntries(services.map((s) => [s.slug, s.cats])),

@@ -42,6 +42,8 @@ const site = {
   searchConsole: '',           // google-site-verification content value
   mapsKey: '',                 // browser key with Places API → enables address autocomplete
   recaptchaSiteKey: '',        // reCAPTCHA v3 site key (honeypot + time-trap always on)
+  // 'netlify' = Netlify Forms (hosting on Netlify). 'php' = api/quote.php (any PHP host).
+  formProvider: 'netlify',
   formEndpoint: '/api/quote.php',
   reviewsEndpoint: '/api/reviews.php',
 };

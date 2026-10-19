@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="/assets/css/styles.css">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","@id":"https://bricklayersbrisbane.com.au/#business","name":"Bricklayers Brisbane","legalName":"Bricklayers Brisbane Pty Ltd","url":"https://bricklayersbrisbane.com.au","telephone":"+61431138393","email":"info@bricklayersbrisbane.com.au","image":"https://bricklayersbrisbane.com.au/wp-content/uploads/2025/06/IMG-20241014-WA0020-5.jpg","logo":"https://bricklayersbrisbane.com.au/assets/img/logo.svg","priceRange":"$$","address":{"@type":"PostalAddress","streetAddress":"9 Burkett Crescent","addressLocality":"Victoria Point","addressRegion":"QLD","postalCode":"4165","addressCountry":"AU"},"areaServed":[{"@type":"City","name":"Brisbane"},{"@type":"City","name":"Redland City"},{"@type":"City","name":"Logan City"},{"@type":"City","name":"Ipswich"},{"@type":"City","name":"Moreton Bay"}],"sameAs":["https://www.facebook.com/bricklayersbrisbane"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Bricklaying services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Entrance, Retaining & Feature Walls","url":"https://bricklayersbrisbane.com.au/services/retaining-feature-walls/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Re-Point Repair","url":"https://bricklayersbrisbane.com.au/services/re-pointing/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Existing Work & Pavers","url":"https://bricklayersbrisbane.com.au/services/existing-work-pavers/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Walls Removed, Replaced or Just Made Safe","url":"https://bricklayersbrisbane.com.au/services/wall-removal-repair/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Brick & Block","url":"https://bricklayersbrisbane.com.au/services/brick-block/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Homes & Developments","url":"https://bricklayersbrisbane.com.au/services/homes-developments/"}}]}}</script>
-<script>window.SITE={"phone":"0431 138 393","phoneIntl":"+61431138393","formEndpoint":"/api/quote.php","reviewsEndpoint":"/api/reviews.php","mapsKey":"","recaptchaSiteKey":"","serviceNames":{"retaining-feature-walls":"Entrance, Retaining & Feature Walls","re-pointing":"Re-Point Repair","existing-work-pavers":"Existing Work & Pavers","wall-removal-repair":"Walls Removed, Replaced or Just Made Safe","brick-block":"Brick & Block","homes-developments":"Homes & Developments"},"serviceCats":{"retaining-feature-walls":["retaining","feature"],"re-pointing":["repointing"],"existing-work-pavers":["pavers"],"wall-removal-repair":["removal"],"brick-block":["brickblock"],"homes-developments":["homes"]},"serviceKeywords":{"retaining-feature-walls":["retaining","feature","entrance","fence","wall"],"re-pointing":["repoint","re-point","mortar","pointing"],"existing-work-pavers":["paver","paving","step","stairs","path"],"wall-removal-repair":["remov","insurance","safe","crack","damage"],"brick-block":["brick","block"],"homes-developments":["home","house","build","develop","townhouse"]}};</script>
+<script>window.SITE={"phone":"0431 138 393","phoneIntl":"+61431138393","formProvider":"netlify","formEndpoint":"/api/quote.php","maxFiles":5,"reviewsEndpoint":"/api/reviews.php","mapsKey":"","recaptchaSiteKey":"","serviceNames":{"retaining-feature-walls":"Entrance, Retaining & Feature Walls","re-pointing":"Re-Point Repair","existing-work-pavers":"Existing Work & Pavers","wall-removal-repair":"Walls Removed, Replaced or Just Made Safe","brick-block":"Brick & Block","homes-developments":"Homes & Developments"},"serviceCats":{"retaining-feature-walls":["retaining","feature"],"re-pointing":["repointing"],"existing-work-pavers":["pavers"],"wall-removal-repair":["removal"],"brick-block":["brickblock"],"homes-developments":["homes"]},"serviceKeywords":{"retaining-feature-walls":["retaining","feature","entrance","fence","wall"],"re-pointing":["repoint","re-point","mortar","pointing"],"existing-work-pavers":["paver","paving","step","stairs","path"],"wall-removal-repair":["remov","insurance","safe","crack","damage"],"brick-block":["brick","block"],"homes-developments":["home","house","build","develop","townhouse"]}};</script>
 <!-- Google Analytics 4: set site.gaId in src/data.js -->
 <script src="/assets/js/main.js" defer></script>
 </head>
@@ -71,14 +71,15 @@
         <h3>Prefer a quick call back?</h3>
         <p>Leave your number and we'll call you.</p>
         
-  <form class="quick-form on-dark" data-endpoint="/api/quote.php" novalidate>
+  <form class="quick-form on-dark" name="callback" method="POST" data-netlify="true" netlify-honeypot="company_website" novalidate>
+    <input type="hidden" name="form-name" value="callback">
     <input type="hidden" name="form_type" value="quick">
     <label class="sr-only" for="cta-name">Name</label>
     <input id="cta-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
     <label class="sr-only" for="cta-phone">Phone</label>
     <input id="cta-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Phone number" required pattern="^(\+?61|0)[2-478](?:[ -]?\d){8}$">
     <label class="sr-only" for="cta-svc">Service</label>
-    <select id="cta-svc" name="services[]" required>
+    <select id="cta-svc" name="services" required>
       <option value="">Service needed…</option>
       <option value="retaining-feature-walls">Entrance, Retaining &amp; Feature Walls</option><option value="re-pointing">Re-Point Repair</option><option value="existing-work-pavers">Existing Work &amp; Pavers</option><option value="wall-removal-repair">Walls Removed, Replaced or Just Made Safe</option><option value="brick-block">Brick &amp; Block</option><option value="homes-developments">Homes &amp; Developments</option>
       <option value="other">Other</option>
@@ -88,6 +89,7 @@
   <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
   <input type="hidden" name="form_started" value="">
   <input type="hidden" name="recaptcha_token" value="">
+  <input type="hidden" name="page" value="">
     <button class="btn btn-cta" type="submit">Call me back</button>
     <p class="qq-msg" role="status"></p>
   </form>

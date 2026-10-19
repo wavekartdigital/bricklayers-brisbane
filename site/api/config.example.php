@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Server-side settings for the quote form and Google reviews feed.
 // This file is blocked from web access by api/.htaccess. Keep secrets here, never in JS.
 return [
@@ -19,7 +19,7 @@ return [
     'reviews_cache_hours' => 6,
 
     // Uploads
-    'max_files'        => 10,
+    'max_files'        => 5,
     'max_file_mb'      => 10,
     'max_email_mb'     => 20,  // attachments above this total are saved on the server, not emailed
 ];

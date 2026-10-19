@@ -28,7 +28,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Homes & Developments","serviceType":"Homes & Developments","description":"Residential and multi-unit development bricklaying across South East Queensland. Reliable crews, quality blockwork, on-time completion.","areaServed":"Brisbane, QLD","provider":{"@id":"https://bricklayersbrisbane.com.au/#business"},"url":"https://bricklayersbrisbane.com.au/services/homes-developments/"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What size developments do you take on?","acceptedAnswer":{"@type":"Answer","text":"From single new homes to multi-unit townhouse projects. Tell us the scope and program and we'll confirm crew availability."}},{"@type":"Question","name":"Can you work from plans?","acceptedAnswer":{"@type":"Answer","text":"Yes. Send plans and engineering through the quote form and we'll provide a detailed quote."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://bricklayersbrisbane.com.au/"},{"@type":"ListItem","position":2,"name":"Services","item":"https://bricklayersbrisbane.com.au/services/"},{"@type":"ListItem","position":3,"name":"Homes & Developments","item":"https://bricklayersbrisbane.com.au/services/homes-developments/"}]}</script>
-<script>window.SITE={"phone":"0431 138 393","phoneIntl":"+61431138393","formEndpoint":"/api/quote.php","reviewsEndpoint":"/api/reviews.php","mapsKey":"","recaptchaSiteKey":"","serviceNames":{"retaining-feature-walls":"Entrance, Retaining & Feature Walls","re-pointing":"Re-Point Repair","existing-work-pavers":"Existing Work & Pavers","wall-removal-repair":"Walls Removed, Replaced or Just Made Safe","brick-block":"Brick & Block","homes-developments":"Homes & Developments"},"serviceCats":{"retaining-feature-walls":["retaining","feature"],"re-pointing":["repointing"],"existing-work-pavers":["pavers"],"wall-removal-repair":["removal"],"brick-block":["brickblock"],"homes-developments":["homes"]},"serviceKeywords":{"retaining-feature-walls":["retaining","feature","entrance","fence","wall"],"re-pointing":["repoint","re-point","mortar","pointing"],"existing-work-pavers":["paver","paving","step","stairs","path"],"wall-removal-repair":["remov","insurance","safe","crack","damage"],"brick-block":["brick","block"],"homes-developments":["home","house","build","develop","townhouse"]}};</script>
+<script>window.SITE={"phone":"0431 138 393","phoneIntl":"+61431138393","formProvider":"netlify","formEndpoint":"/api/quote.php","maxFiles":5,"reviewsEndpoint":"/api/reviews.php","mapsKey":"","recaptchaSiteKey":"","serviceNames":{"retaining-feature-walls":"Entrance, Retaining & Feature Walls","re-pointing":"Re-Point Repair","existing-work-pavers":"Existing Work & Pavers","wall-removal-repair":"Walls Removed, Replaced or Just Made Safe","brick-block":"Brick & Block","homes-developments":"Homes & Developments"},"serviceCats":{"retaining-feature-walls":["retaining","feature"],"re-pointing":["repointing"],"existing-work-pavers":["pavers"],"wall-removal-repair":["removal"],"brick-block":["brickblock"],"homes-developments":["homes"]},"serviceKeywords":{"retaining-feature-walls":["retaining","feature","entrance","fence","wall"],"re-pointing":["repoint","re-point","mortar","pointing"],"existing-work-pavers":["paver","paving","step","stairs","path"],"wall-removal-repair":["remov","insurance","safe","crack","damage"],"brick-block":["brick","block"],"homes-developments":["home","house","build","develop","townhouse"]}};</script>
 <!-- Google Analytics 4: set site.gaId in src/data.js -->
 <script src="/assets/js/main.js" defer></script>
 </head>
@@ -74,14 +74,15 @@
   </a>
       </div>
       <aside class="hero-card"><h2>Quick quote</h2><p>Leave your details and we'll call you back today.</p>
-  <form class="quick-form" data-endpoint="/api/quote.php" novalidate>
+  <form class="quick-form" name="callback" method="POST" data-netlify="true" netlify-honeypot="company_website" novalidate>
+    <input type="hidden" name="form-name" value="callback">
     <input type="hidden" name="form_type" value="quick">
     <label class="sr-only" for="svc-name">Name</label>
     <input id="svc-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
     <label class="sr-only" for="svc-phone">Phone</label>
     <input id="svc-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Phone number" required pattern="^(\+?61|0)[2-478](?:[ -]?\d){8}$">
     <label class="sr-only" for="svc-svc">Service</label>
-    <select id="svc-svc" name="services[]" required>
+    <select id="svc-svc" name="services" required>
       <option value="">Service needed…</option>
       <option value="retaining-feature-walls">Entrance, Retaining &amp; Feature Walls</option><option value="re-pointing">Re-Point Repair</option><option value="existing-work-pavers">Existing Work &amp; Pavers</option><option value="wall-removal-repair">Walls Removed, Replaced or Just Made Safe</option><option value="brick-block">Brick &amp; Block</option><option value="homes-developments">Homes &amp; Developments</option>
       <option value="other">Other</option>
@@ -91,6 +92,7 @@
   <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
   <input type="hidden" name="form_started" value="">
   <input type="hidden" name="recaptcha_token" value="">
+  <input type="hidden" name="page" value="">
     <button class="btn btn-cta" type="submit">Call me back</button>
     <p class="qq-msg" role="status"></p>
   </form></aside>
@@ -294,7 +296,8 @@
     <p>Takes about 2 minutes. We reply within 24 hours.</p>
   </div>
         <div class="form-card">
-  <form class="quote-form" id="quote-form" novalidate data-endpoint="/api/quote.php" enctype="multipart/form-data">
+  <form class="quote-form" id="quote-form" novalidate name="quote" method="POST" data-netlify="true" netlify-honeypot="company_website" enctype="multipart/form-data">
+    <input type="hidden" name="form-name" value="quote">
     <div class="qf-progress" aria-hidden="true">
       <div class="qf-bar"><span></span></div>
       <ol class="qf-steps"><li class="on">Your Project</li><li>Details</li><li>Timing &amp; Budget</li><li>Your Details</li></ol>
@@ -308,8 +311,8 @@
     <legend>Service required: select all that apply <em aria-hidden="true">*</em></legend>
     
         <div class="svc-cards">
-          <label class="svc-card"><input type="checkbox" name="services[]" value="retaining-feature-walls" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5h18v14H3z M3 9.7h18 M3 14.3h18 M9 5v4.7 M15 5v4.7 M6 9.7v4.6 M12 9.7v4.6 M18 9.7v4.6 M9 14.3V19 M15 14.3V19"/></svg><span>Entrance, Retaining &amp; Feature Walls</span></label><label class="svc-card"><input type="checkbox" name="services[]" value="re-pointing" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 4l7 7-7.5 1.5L11.5 11.5z M11.5 12.5L4 20 M6.5 17.5l-2-2"/></svg><span>Re-Point Repair</span></label><label class="svc-card"><input type="checkbox" name="services[]" value="existing-work-pavers" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3h8v8H3z M13 3h8v8h-8z M3 13h8v8H3z M13 13h8v8h-8z"/></svg><span>Existing Work &amp; Pavers</span></label><label class="svc-card"><input type="checkbox" name="services[]" value="wall-removal-repair" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z M8.5 12l2.5 2.5 4.5-5"/></svg><span>Walls Removed, Replaced or Just Made Safe</span></label><label class="svc-card"><input type="checkbox" name="services[]" value="brick-block" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 14h9v6H2z M13 14h9v6h-9z M7 7h10v6H7z"/></svg><span>Brick &amp; Block</span></label><label class="svc-card"><input type="checkbox" name="services[]" value="homes-developments" checked data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11l9-7 9 7 M5 9.5V20h14V9.5 M10 20v-6h4v6"/></svg><span>Homes &amp; Developments</span></label>
-          <label class="svc-card"><input type="checkbox" name="services[]" value="other" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14 M5 12h14"/></svg><span>Other</span></label>
+          <label class="svc-card"><input type="checkbox" name="services" value="retaining-feature-walls" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5h18v14H3z M3 9.7h18 M3 14.3h18 M9 5v4.7 M15 5v4.7 M6 9.7v4.6 M12 9.7v4.6 M18 9.7v4.6 M9 14.3V19 M15 14.3V19"/></svg><span>Entrance, Retaining &amp; Feature Walls</span></label><label class="svc-card"><input type="checkbox" name="services" value="re-pointing" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 4l7 7-7.5 1.5L11.5 11.5z M11.5 12.5L4 20 M6.5 17.5l-2-2"/></svg><span>Re-Point Repair</span></label><label class="svc-card"><input type="checkbox" name="services" value="existing-work-pavers" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3h8v8H3z M13 3h8v8h-8z M3 13h8v8H3z M13 13h8v8h-8z"/></svg><span>Existing Work &amp; Pavers</span></label><label class="svc-card"><input type="checkbox" name="services" value="wall-removal-repair" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z M8.5 12l2.5 2.5 4.5-5"/></svg><span>Walls Removed, Replaced or Just Made Safe</span></label><label class="svc-card"><input type="checkbox" name="services" value="brick-block" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 14h9v6H2z M13 14h9v6h-9z M7 7h10v6H7z"/></svg><span>Brick &amp; Block</span></label><label class="svc-card"><input type="checkbox" name="services" value="homes-developments" checked data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11l9-7 9 7 M5 9.5V20h14V9.5 M10 20v-6h4v6"/></svg><span>Homes &amp; Developments</span></label>
+          <label class="svc-card"><input type="checkbox" name="services" value="other" data-group-required><svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14 M5 12h14"/></svg><span>Other</span></label>
         </div>
     <p class="err" aria-live="polite"></p>
   </fieldset>
@@ -390,9 +393,10 @@
         <div class="dropzone" tabindex="0" role="button" aria-label="Upload photos or plans: drag and drop or press to browse">
           <svg class="ic " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 16V4 M7 9l5-5 5 5 M4 16v4h16v-4"/></svg>
           <p><b>Drag &amp; drop</b> photos or plans here, or <u>browse</u></p>
-          <small>JPG, PNG, HEIC or PDF · up to 10 files · 10MB each</small>
-          <input type="file" name="attachments[]" multiple accept="image/*,.pdf,application/pdf" hidden>
+          <small>JPG, PNG, HEIC or PDF · up to 5 files · 8MB total</small>
+          <input type="file" class="dz-picker" multiple accept="image/*,.pdf,application/pdf" hidden>
         </div>
+        <input type="file" name="attachment1" hidden tabindex="-1" aria-hidden="true"><input type="file" name="attachment2" hidden tabindex="-1" aria-hidden="true"><input type="file" name="attachment3" hidden tabindex="-1" aria-hidden="true"><input type="file" name="attachment4" hidden tabindex="-1" aria-hidden="true"><input type="file" name="attachment5" hidden tabindex="-1" aria-hidden="true">
         <ul class="file-list" aria-live="polite"></ul>
     <p class="err" aria-live="polite"></p>
   </fieldset>
@@ -501,6 +505,7 @@
   <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
   <input type="hidden" name="form_started" value="">
   <input type="hidden" name="recaptcha_token" value="">
+  <input type="hidden" name="page" value="">
       <p class="form-error" role="alert" hidden></p>
     </section>
 
@@ -558,14 +563,15 @@
         <h3>Prefer a quick call back?</h3>
         <p>Leave your number and we'll call you.</p>
         
-  <form class="quick-form on-dark" data-endpoint="/api/quote.php" novalidate>
+  <form class="quick-form on-dark" name="callback" method="POST" data-netlify="true" netlify-honeypot="company_website" novalidate>
+    <input type="hidden" name="form-name" value="callback">
     <input type="hidden" name="form_type" value="quick">
     <label class="sr-only" for="cta-name">Name</label>
     <input id="cta-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
     <label class="sr-only" for="cta-phone">Phone</label>
     <input id="cta-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Phone number" required pattern="^(\+?61|0)[2-478](?:[ -]?\d){8}$">
     <label class="sr-only" for="cta-svc">Service</label>
-    <select id="cta-svc" name="services[]" required>
+    <select id="cta-svc" name="services" required>
       <option value="">Service needed…</option>
       <option value="retaining-feature-walls">Entrance, Retaining &amp; Feature Walls</option><option value="re-pointing">Re-Point Repair</option><option value="existing-work-pavers">Existing Work &amp; Pavers</option><option value="wall-removal-repair">Walls Removed, Replaced or Just Made Safe</option><option value="brick-block">Brick &amp; Block</option><option value="homes-developments">Homes &amp; Developments</option>
       <option value="other">Other</option>
@@ -575,6 +581,7 @@
   <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
   <input type="hidden" name="form_started" value="">
   <input type="hidden" name="recaptcha_token" value="">
+  <input type="hidden" name="page" value="">
     <button class="btn btn-cta" type="submit">Call me back</button>
     <p class="qq-msg" role="status"></p>
   </form>

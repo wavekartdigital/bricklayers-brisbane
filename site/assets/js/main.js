@@ -194,11 +194,17 @@
       .catch(() => '');
   };
   const post = async (form, fd, action) => {
-    fd.set('recaptcha_token', await getRecaptcha(action));
+    const netlify = form.hasAttribute('data-netlify');
+    if (!netlify) fd.set('recaptcha_token', await getRecaptcha(action));
     fd.set('page', location.pathname);
-    const res = await fetch(form.dataset.endpoint || SITE.formEndpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+    // Send services as one readable value ("Re-Point Repair, Brick & Block") for Netlify, slugs for PHP.
+    const svcs = fd.getAll('services').filter(Boolean);
+    fd.delete('services');
+    fd.set('services', svcs.map((s) => (netlify ? (SITE.serviceNames || {})[s] || (s === 'other' ? 'Other' : s) : s)).join(', '));
+    // Netlify Forms accepts posts to any static path; "/" is the documented default.
+    const res = await fetch(netlify ? '/' : (form.dataset.endpoint || SITE.formEndpoint), { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
     let json = {};
-    try { json = await res.json(); } catch (e) { /* non-JSON */ }
+    try { json = await res.json(); } catch (e) { /* Netlify replies with HTML */ }
     if (!res.ok || json.ok === false) throw new Error(json.error || 'Something went wrong sending your inquiry.');
     if (window.gtag) window.gtag('event', 'generate_lead', { form: action });
     return json;
@@ -248,7 +254,7 @@
 
     // Pre-select a service from ?service=slug
     const pre = new URLSearchParams(location.search).get('service');
-    if (pre) { const cb = qf.querySelector(`input[name="services[]"][value="${CSS.escape(pre)}"]`); if (cb) cb.checked = true; }
+    if (pre) { const cb = qf.querySelector(`input[name="services"][value="${CSS.escape(pre)}"]`); if (cb) cb.checked = true; }
     qf.addEventListener('focusin', () => stamp(qf), { once: true });
 
     const setErr = (fieldEl, text) => {
@@ -319,8 +325,9 @@
     });
 
     // Files: drag & drop
-    const dz = $('.dropzone', qf), input = $('input[type="file"]', qf), list = $('.file-list', qf);
-    const MAX_FILES = 10, MAX_SIZE = 10 * 1024 * 1024;
+    const dz = $('.dropzone', qf), input = $('.dz-picker', qf), list = $('.file-list', qf);
+    // Netlify Forms caps a submission at 8MB, so the limit is on the total, not per file.
+    const MAX_FILES = SITE.maxFiles || 5, MAX_TOTAL = 8 * 1024 * 1024;
     const fmt = (b) => (b > 1048576 ? `${(b / 1048576).toFixed(1)} MB` : `${Math.ceil(b / 1024)} KB`);
     const render = () => {
       list.innerHTML = '';
@@ -339,7 +346,7 @@
       [...fl].forEach((f) => {
         if (files.length >= MAX_FILES) { errs.push(`Max ${MAX_FILES} files.`); return; }
         if (!(f.type.startsWith('image/') || f.type === 'application/pdf' || /\.(pdf|heic|heif)$/i.test(f.name))) { errs.push(`${f.name}: only images or PDFs.`); return; }
-        if (f.size > MAX_SIZE) { errs.push(`${f.name} is over 10MB.`); return; }
+        if (files.reduce((t, x) => t + x.size, 0) + f.size > MAX_TOTAL) { errs.push(`${f.name} would take the upload over 8MB in total. Try smaller photos, or email them to us after you submit.`); return; }
         if (!files.some((x) => x.name === f.name && x.size === f.size)) files.push(f);
       });
       setErr(dz.closest('.field'), [...new Set(errs)].join(' '));
@@ -378,8 +385,9 @@
       const errBox = $('.form-error', qf);
       errBox.hidden = true;
       const fd = new FormData(qf);
-      fd.delete('attachments[]');
-      files.forEach((f) => fd.append('attachments[]', f, f.name));
+      // One file per field: Netlify Forms keeps a single file per input name.
+      for (let i = 1; i <= MAX_FILES; i++) fd.delete(`attachment${i}`);
+      files.forEach((f, i) => fd.set(`attachment${i + 1}`, f, f.name));
       btnSubmit.disabled = true;
       const label = btnSubmit.innerHTML;
       btnSubmit.innerHTML = '<span class="spinner"></span> Sending…';
