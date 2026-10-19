@@ -10,7 +10,7 @@ site/              ← upload this folder to the web host
   assets/css/styles.css, assets/js/main.js   (hand-written, not generated)
   api/quote.php    ← form handler: emails business + customer, spam checks
   api/reviews.php  ← Google reviews proxy (Places API), cached
-  api/config.php   ← server secrets (emails, API keys)
+  api/config.php   ← server secrets (emails, API keys). Not in git: copy config.example.php
 serve.js           ← local preview server (fakes the PHP API)
 ```
 
