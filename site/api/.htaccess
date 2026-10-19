@@ -1,0 +1,5 @@
+# Block direct access to config and stored data
+<FilesMatch "^(config\.php|.*\.(json|csv|log))$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 403 ^/api/storage/

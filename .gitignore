@@ -1,0 +1,11 @@
+# Runtime data written by the PHP handlers (leads, uploads, caches)
+site/api/storage/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+node_modules/
+
+# Real server secrets: copy config.example.php to config.php on the host
+site/api/config.php
