@@ -17,6 +17,7 @@ const site = {
   phoneIntl: '+61431138393',
   whatsapp: '61431138393',
   email: 'info@bricklayersbrisbane.com.au',
+  emails: ['info@bricklayersbrisbane.com.au', 'completebrick@hotmail.com'], // all shown on the site; `email` is the main one
   street: '9 Burkett Crescent',
   suburb: 'Victoria Point',
   state: 'QLD',

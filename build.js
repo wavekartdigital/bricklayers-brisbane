@@ -406,7 +406,7 @@ write('/contact/', layout({
   <section class="section">
     <div class="wrap contact-grid">
       <a class="contact-card reveal" href="${tel}">${icon('phone')}<h2>Call</h2><p>${site.phone}</p></a>
-      <a class="contact-card reveal" href="mailto:${site.email}">${icon('mail')}<h2>Email</h2><p>${site.email}</p></a>
+      <div class="contact-card reveal">${icon('mail')}<h2>Email</h2><p>${site.emails.map((e) => `<a href="mailto:${e}">${e}</a>`).join('<br>')}</p></div>
       <a class="contact-card reveal" href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener">${icon('whatsapp')}<h2>WhatsApp / SMS</h2><p>Send photos of your job</p></a>
       <div class="contact-card reveal">${icon('clock')}<h2>Hours</h2><p>${site.hours.map(([d, h]) => `${d}: ${t(h)}`).join('<br>')}</p></div>
     </div>

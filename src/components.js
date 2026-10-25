@@ -388,7 +388,7 @@ const footer = () => `
         <h3>Contact</h3>
         <ul class="ftr-contact">
           <li>${icon('phone')}<a href="${tel}">${site.phone}</a></li>
-          <li>${icon('mail')}<a href="mailto:${site.email}">${site.email}</a></li>
+          ${site.emails.map((e) => `<li>${icon('mail')}<a href="mailto:${e}">${e}</a></li>`).join('')}
           <li>${icon('pin')}<span>${site.street}, ${site.suburb} ${site.state} ${site.postcode}</span></li>
           <li>${icon('clock')}<span>${site.hours.map(([d, h]) => `${d}: ${t(h)}`).join('<br>')}</span></li>
         </ul>

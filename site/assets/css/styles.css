@@ -485,6 +485,8 @@ a.contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg)
 .contact-card .ic { width: 40px; height: 40px; padding: 9px; border-radius: 10px; background: var(--brick); color: #fff; margin-bottom: 12px; }
 .contact-card h2 { font-size: 1.15rem; margin-bottom: 4px; }
 .contact-card p { margin: 0; color: var(--muted); word-break: break-word; }
+.contact-card p a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.contact-card p a:hover { color: var(--brick); text-decoration-color: currentColor; }
 .addr { display: flex; gap: 8px; align-items: center; color: var(--muted); margin-top: 18px; }
 .addr .ic { color: var(--brick); }
 
