@@ -396,7 +396,7 @@ const footer = () => `
       </div>
     </div>
     <div class="wrap ftr-legal">
-      <p>© <span data-year>${new Date().getFullYear()}</span> ${site.legalName} · ABN ${t(site.abn)} · QBCC Licence ${t(site.qbcc)}</p>
+      <p>© <span data-year>${new Date().getFullYear()}</span> ${site.legalName} · ACN ${t(site.acn)} · ABN ${t(site.abn)} · QBCC Licence ${t(site.qbcc)}</p>
       <p>Licensed &amp; fully insured · Servicing Brisbane, Redlands, Logan, Ipswich &amp; Moreton Bay</p>
     </div>
   </footer>
