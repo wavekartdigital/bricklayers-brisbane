@@ -1,5 +1,5 @@
 // Shared markup: layout, header, footer, cards, forms, icons.
-const { site, services, categories, projects, sampleReviews, img } = require('./data');
+const { site, services, categories, projects, reviews, img } = require('./data');
 
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // Escape, then highlight [placeholders] so they're obvious on the page.
@@ -117,8 +117,7 @@ const reviewCard = (r) => `
       ${gLogo}
     </header>
     ${stars(r.rating)}
-    <p>${t(r.text)}</p>
-    <span class="sample-chip">Sample, not a real review</span>
+    <p class="clamp">${t(r.text)}</p>
   </article>`;
 
 const reviewSummary = () => `
@@ -135,7 +134,7 @@ const reviewsCarousel = (filter) => `
   <div class="reviews-wrap" data-reviews${filter ? ` data-filter="${filter}"` : ''}>
     <div class="carousel" data-carousel>
       <div class="carousel-track" tabindex="0" aria-label="Google reviews">
-        ${sampleReviews.map(reviewCard).join('')}
+        ${reviews.map(reviewCard).join('')}
       </div>
       <div class="carousel-ctrl">
         <button class="icon-btn" data-prev aria-label="Previous reviews">${icon('left')}</button>

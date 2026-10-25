@@ -27,14 +27,14 @@ const site = {
   abn: '22 687 173 128',
   acn: '687 173 128',
   projects: '[X]+',
-  rating: '[4.9]',
-  reviewCount: '[X]',
+  rating: '5.0',
+  reviewCount: '6',
   hours: [
     ['Mon – Fri', '[6:30am – 4:30pm]'],
     ['Saturday', '[By appointment]'],
     ['Sunday', 'Closed'],
   ],
-  googleProfile: '[Google Business Profile link]',
+  googleProfile: 'https://www.google.com/maps?cid=17566235595033053726',
   googleReviewUrl: '[Google "leave a review" link]',
   facebook: 'https://www.facebook.com/bricklayersbrisbane',
   instagram: '', // add when the account is live
@@ -290,14 +290,44 @@ const projects = [
     type: 'Residential · New structure', challenge: 'A new garage and storage building at the rear of the block.', solution: 'Block construction built to engineering, ready for roof and render.' },
 ].map((p) => ({ ...p, suburb: '[Suburb]', duration: '[X weeks]', quote: '[Client quote, add once approved]' }));
 
-// Shown until live Google reviews load from /api/reviews.php. Never present these as real.
-const sampleReviews = Array.from({ length: 6 }, (_, i) => ({
-  author: '[Reviewer name]',
-  date: '[Date]',
-  rating: 5,
-  text: '[A real Google review will appear here once the reviews feed is connected. These cards are placeholders.]',
-  service: services[i % services.length].slug,
-}));
+// Google reviews (captured from the Google Business Profile, Oct 2026). Live ones from /api/reviews.php replace these once a Places key is set.
+const reviews = [
+  {
+    author: "Pete Jon",
+    date: "April 2026",
+    service: "brick-block",
+    text: "We engaged Complete Brick & Block, run by Phil, for recent works and were seriously impressed with the outcome. Phil is great to deal with straightforward, knowledgeable, and clearly takes pride in delivering a proper job. The brickwork itself is spot on straight, consistent, and finished to a very high standard. Everything was handled professionally from start to finish, with no shortcuts taken and a strong focus on quality workmanship. It’s not easy finding trades that consistently deliver at this level, but Complete Brick & Block definitely does. Would highly recommend Phil and his team to anyone looking for top-tier bricklaying.",
+    rating: 5
+  },
+  {
+    author: "Marisa C",
+    date: "2025",
+    service: "homes-developments",
+    text: "J & P Gallagher Bricklayers did an outstanding job on our brick fence for our new home! From start to finish, their professionalism and attention to detail were evident. The team was punctual, friendly, and highly skilled, ensuring every brick was perfectly aligned. They listened to our vision and made it a reality, exceeding our expectations with their craftsmanship. The quality of their work is impressive, and we couldn’t be happier with the final result. We would highly recommend J & P Gallagher Bricklayers Pty Ltd to anyone looking for reliable, top-notch brickwork. Thank you for transforming our space!",
+    rating: 5
+  },
+  {
+    author: "Yadav Paruchuri",
+    date: "2025",
+    service: "retaining-feature-walls",
+    text: "We engaged Phil and his team for knock down and rebuild of our retaining wall. From the time of inspection and providing quote, Phil has been extremely professional, kind and prompt in his response. His quote was also was quite reasonable in comparison. He knew ins and outs of the job and provided me the professional advice required. There was no up selling at all. Also, once we finalised the job, Phil and his team got on it straight away and completed with utmost care. There were minor delays from set plan but Phil managed it all professionally. There were days when it was not progressing as per plan due to things out of his control. He just kept the cool, kept me informed and got on with the job. There was a day when he and his team member Andy worked until 8.00pm to finish the agreed job. He also came back the next day to finish the job. I highly recommend Phil and his team to anyone and happy to re-engage them anytime.",
+    rating: 5
+  },
+  {
+    author: "Sharon Main",
+    date: "2025",
+    service: "existing-work-pavers",
+    text: "The team from J&P Gallagher came to my house to build a bbq extension for my pizza oven. The results were fantastic. The boys were very friendly professional and I was so pleased they came to do such a small job for me. I will definitely have no hesitation calling them back for more work. Thanks for a great result boys.",
+    rating: 5
+  },
+  {
+    author: "Wije Suba",
+    date: "2024",
+    service: "retaining-feature-walls",
+    text: "Phil Gallagher and his team recently completed a project for me involving block retaining walls with reinforced concrete bases, block walls and concrete pavements. The work required precise placement of reinforcement and concreting work to a high standard and accuracy. The block work retaining walls up to 3m high also was done to a high standard to achieve structural design strength requirements. Overall his work not only satisfied structural design engineers requirements, but also was very cost effective. He was instrumental in organizing work successfully within many constraints and all supplies, such concrete, rebars, concrete blocks etc at very competitive prices. Above all he completed all civil works ahead of schedule. I am very pleased and have no hesitation in recommending him to anyone who seeks his services, for any such construction work whether small or large.",
+    rating: 5
+  }
+];
 
 const whyUs = [
   ['award', 'Quality workmanship', 'Straight lines, clean joints and finishes we\'re proud to put our name on.'],
@@ -335,4 +365,4 @@ const areas = [
   ['Moreton Bay', ['North Lakes', 'Redcliffe', 'Strathpine', 'Caboolture', 'Narangba', 'Petrie']],
 ];
 
-module.exports = { site, services, categories, projects, sampleReviews, whyUs, process, faqs, areas, img };
+module.exports = { site, services, categories, projects, reviews, whyUs, process, faqs, areas, img };

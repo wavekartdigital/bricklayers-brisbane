@@ -341,7 +341,7 @@ write('/reviews/', layout({
     <div class="wrap reviews-page">
       ${reviewSummary()}
       <div class="reviews-wrap review-wall" data-reviews data-layout="grid">
-        <div class="carousel-track grid">${require('./src/data').sampleReviews.map(C.reviewCard).join('')}</div>
+        <div class="carousel-track grid">${require('./src/data').reviews.map(C.reviewCard).join('')}</div>
       </div>
     </div>
   </section>
