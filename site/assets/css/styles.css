@@ -504,6 +504,16 @@ a.contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg)
 .social a:hover { background: var(--brick); }
 .ftr-legal { border-top: 1px solid rgba(255, 255, 255, .1); padding-top: 20px; padding-bottom: 24px; font-size: .82rem; color: rgba(255, 255, 255, .55); }
 .ftr-legal p { margin: 0 0 4px; }
+.ftr-legal .credit { margin-top: 12px; font-size: .76rem; letter-spacing: .02em; }
+.credit-name { color: #fff; font-weight: 700; background: linear-gradient(transparent 62%, rgba(180, 71, 44, .7) 62%); padding: 0 2px; }
+
+/* Sticky WhatsApp button: icon-only above the mobile bar, labelled pill on desktop */
+.wa-float { position: fixed; right: 16px; bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 89; display: inline-flex; align-items: center; gap: 8px; width: 56px; height: 56px; justify-content: center; border-radius: 999px; background: #25d366; color: #fff; text-decoration: none; font-weight: 700; font-size: .92rem; box-shadow: 0 8px 24px rgba(0, 0, 0, .25); transition: transform .2s, box-shadow .2s; }
+.wa-float:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, .3); }
+.wa-float:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+.wa-float .ic { width: 28px; height: 28px; stroke-width: 2; }
+.wa-float span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+@media print { .wa-float { display: none; } }
 
 /* ── Mobile action bar ── */
 .mobile-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; display: grid; grid-template-columns: repeat(4, 1fr); background: var(--charcoal); padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -6px 20px rgba(0, 0, 0, .25); }
@@ -544,6 +554,8 @@ a.contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg)
   :root { --hdr-h: 80px; }
   body { padding-bottom: 0; }
   .mobile-bar { display: none; }
+  .wa-float { bottom: 24px; right: 24px; width: auto; height: auto; padding: 12px 20px 12px 16px; }
+  .wa-float span { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
   .section { padding: 96px 0; }
   .hdr-cta { display: inline-flex; }
   .filters { flex-wrap: wrap; overflow: visible; }

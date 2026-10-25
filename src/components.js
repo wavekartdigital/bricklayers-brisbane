@@ -397,8 +397,11 @@ const footer = () => `
     <div class="wrap ftr-legal">
       <p>© <span data-year>${new Date().getFullYear()}</span> ${site.legalName} · ACN ${t(site.acn)} · ABN ${t(site.abn)} · QBCC Licence ${t(site.qbcc)}</p>
       <p>Licensed &amp; fully insured · Servicing Brisbane, Redlands, Logan, Ipswich &amp; Moreton Bay</p>
+      <p class="credit">Designed by <span class="credit-name">Wavekart Digital</span></p>
     </div>
   </footer>
+
+  <a class="wa-float" href="https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hi Bricklayers Brisbane, I'd like a quote for…")}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">${icon('whatsapp')}<span>Chat on WhatsApp</span></a>
 
   <nav class="mobile-bar" aria-label="Quick contact">
     <a href="${tel}">${icon('phone')}<span>Call</span></a>
