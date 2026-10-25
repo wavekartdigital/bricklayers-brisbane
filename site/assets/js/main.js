@@ -17,6 +17,7 @@
   const setMenu = (open) => {
     burger.setAttribute('aria-expanded', open);
     burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open) nav.style.top = `${Math.round($('.site-header').getBoundingClientRect().bottom)}px`;
     nav.classList.toggle('open', open);
     document.body.style.overflow = open ? 'hidden' : '';
   };

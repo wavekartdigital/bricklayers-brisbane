@@ -317,6 +317,21 @@ const nav = [
 
 const header = (path) => `
   <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+    <div class="wrap tb">
+      <p class="tb-area">${icon('pin')}<span>${site.suburb} ${site.state} · Servicing Brisbane, Redlands, Logan, Ipswich &amp; Moreton Bay</span></p>
+      <ul class="tb-contact">
+        <li><a href="${tel}">${icon('phone')}<span>${site.phone}</span></a></li>
+        ${site.emails.map((e, i) => `<li class="tb-email${i ? ' tb-extra' : ''}"><a href="mailto:${e}" aria-label="Email ${e}">${icon('mail')}<span>${e}</span></a></li>`).join('')}
+      </ul>
+      <div class="tb-social">
+        <a href="${site.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${icon('facebook')}</a>
+        ${site.instagram ? `<a href="${site.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${icon('instagram')}</a>` : ''}
+        <a href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp">${icon('whatsapp')}</a>
+        <a href="${esc(site.googleProfile)}" data-ph-href target="_blank" rel="noopener" aria-label="Google reviews">${gLogo}</a>
+      </div>
+    </div>
+  </div>
   <header class="site-header" id="top">
     <div class="wrap hdr">
       ${logo()}
