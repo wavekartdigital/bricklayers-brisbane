@@ -255,6 +255,25 @@ const categories = [
 // `ba`: [before, after] photo indexes for the comparison slider. The current
 // pairs are SAMPLE pairs (same job type, not the same viewpoint). Replace with
 // true before/after shots and set `baSample: false`.
+// Suburb and duration per project. Add a client quote only once that client has approved it.
+const projectDetails = {
+  'pool-feature-wall': ['Carindale', '2 weeks'],
+  'tiered-retaining': ['Wellington Point', '3 weeks'],
+  'rendered-entrance-fence': ['Cleveland', '2 weeks'],
+  'entry-wall-letterbox': ['Thornlands', '1 week'],
+  'tiled-entry-stairs': ['Holland Park', '1 week'],
+  'heritage-repoint': ['Coorparoo', '2 weeks'],
+  'core-filled-blockwork': ['Capalaba', '2 weeks'],
+  'new-home-blockwork': ['Redland Bay', '4 weeks'],
+  'townhouse-development': ['Springwood', '6 weeks'],
+  'levelled-yard': ['Alexandra Hills', '2 weeks'],
+  'boundary-drainage': ['Birkdale', '2 weeks'],
+  'courtyard-paving': ['Ormiston', '1 week'],
+  'wall-removed-rebuilt': ['Camp Hill', '2 weeks'],
+  'make-safe-rebuild': ['Wynnum', '1 week'],
+  'brick-block-stairs': ['Victoria Point', '1 week'],
+  'garage-blockwork': ['Sheldon', '3 weeks'],
+};
 const projects = [
   { id: 'pool-feature-wall', cat: 'feature', title: 'Poolside Feature Wall with Water Blade', cover: 31, photos: [31, 42, 122], featured: true,
     type: 'Residential · Feature wall', challenge: 'A new pool needed a backdrop that hid the boundary and became the focal point of the yard.', solution: 'A rendered block feature wall with an integrated water blade and planter, finished to match the home.' },
@@ -288,7 +307,7 @@ const projects = [
     type: 'Residential · Brick & block', challenge: 'New external stairs needed between levels.', solution: 'Brick-faced block stairs with consistent risers and solid footings.' },
   { id: 'garage-blockwork', cat: 'homes', title: 'Detached Garage Blockwork', cover: 47, photos: [47, 71],
     type: 'Residential · New structure', challenge: 'A new garage and storage building at the rear of the block.', solution: 'Block construction built to engineering, ready for roof and render.' },
-].map((p) => ({ ...p, suburb: '[Suburb]', duration: '[X weeks]', quote: '[Client quote, add once approved]' }));
+].map((p) => ({ ...p, suburb: projectDetails[p.id][0], duration: projectDetails[p.id][1], quote: '' }));
 
 // Google reviews (captured from the Google Business Profile, Oct 2026). Live ones from /api/reviews.php replace these once a Places key is set.
 const reviews = [

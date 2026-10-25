@@ -151,6 +151,7 @@
       $('#lb-challenge').textContent = cur.challenge;
       $('#lb-solution').textContent = cur.solution;
       $('#lb-quote').innerHTML = ph(cur.quote);
+      $('#lb-quote').hidden = !cur.quote;
       const svc = Object.keys(SITE.serviceCats || {}).find((k) => SITE.serviceCats[k].includes(cur.cat));
       $('#lb-cta').href = `/quote/${svc ? `?service=${svc}` : ''}`;
       $('#lb-thumbs').innerHTML = cur.photos.map((src, j) => `<button type="button" aria-label="Show photo ${j + 1}"><img src="${src}" alt="" loading="lazy"></button>`).join('');
