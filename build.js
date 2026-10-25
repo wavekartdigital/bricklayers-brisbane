@@ -1,7 +1,7 @@
 // Static site generator: `node build.js` writes every page into ./site
 const fs = require('fs');
 const path = require('path');
-const { site, services, categories, projects, whyUs, process: steps, faqs, areas, img } = require('./src/data');
+const { site, heroSlides, services, categories, projects, whyUs, process: steps, faqs, areas, img } = require('./src/data');
 const C = require('./src/components');
 const { esc, t, icon, stars, gLogo, tel, phoneLink, ratingBadge, picture, projectCard, projectsJSON, lightbox,
   reviewSummary, reviewsCarousel, faqList, sectionHead, quoteForm, quickForm, layout, faqSchema, crumbSchema, catName } = C;
@@ -123,9 +123,17 @@ write('/', layout({
     <div class="hero-bg">${picture(31, 'Rendered poolside feature wall built by Bricklayers Brisbane', { eager: true })}</div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <span class="eyebrow light">Brisbane's family-owned bricklayers</span>
-        <h1>Quality Brickwork That Stands the Test of Time</h1>
-        <p class="lead">Retaining walls, feature walls, repointing and new builds across Brisbane. Licensed &amp; insured, with ${site.years} years of experience.</p>
+        <div class="hero-slides" data-hero-slides aria-roledescription="carousel" aria-label="What we do">
+          ${heroSlides.map((s, i) => `
+          <div class="hero-slide${i ? '' : ' is-active'}" data-slide aria-roledescription="slide" aria-label="${i + 1} of ${heroSlides.length}"${i ? ' aria-hidden="true"' : ''}>
+            <span class="eyebrow light">${s.eyebrow}</span>
+            ${i ? `<p class="h1">${s.title}</p>` : `<h1>${s.title}</h1>`}
+            <p class="lead">${s.text}${s.slug ? ` <a class="hero-more" href="/services/${s.slug}/"${i ? ' tabindex="-1"' : ''}>${s.link} ${icon('arrow')}</a>` : ''}</p>
+          </div>`).join('')}
+          <div class="hero-dots" role="group" aria-label="Choose a headline">
+            ${heroSlides.map((s, i) => `<button type="button" data-dot="${i}" aria-label="${s.eyebrow}"${i ? '' : ' aria-current="true"'}></button>`).join('')}
+          </div>
+        </div>
         <div class="btn-row">
           <a class="btn btn-cta btn-lg" href="/quote/">Get a Free Quote ${icon('arrow')}</a>
           <a class="btn btn-light btn-lg" href="/portfolio/">View Our Work</a>

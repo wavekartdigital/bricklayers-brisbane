@@ -409,6 +409,34 @@
     });
   }
 
+  // ── Home banner: rotate service headlines ──────────────────
+  const heroSlides = $('[data-hero-slides]');
+  if (heroSlides) {
+    const slides = $$('[data-slide]', heroSlides);
+    const dots = $$('[data-dot]', heroSlides);
+    let at = 0, timer = null;
+    const go = (n) => {
+      at = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => {
+        const on = i === at;
+        s.classList.toggle('is-active', on);
+        s.setAttribute('aria-hidden', String(!on));
+        $$('a', s).forEach((a) => { a.tabIndex = on ? 0 : -1; });
+      });
+      dots.forEach((d, i) => d.setAttribute('aria-current', String(i === at)));
+    };
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const play = () => { if (!still && !timer) timer = setInterval(() => go(at + 1), 5500); };
+    const pause = () => { clearInterval(timer); timer = null; };
+    dots.forEach((d) => d.addEventListener('click', () => { go(+d.dataset.dot); pause(); play(); }));
+    heroSlides.addEventListener('mouseenter', pause);
+    heroSlides.addEventListener('mouseleave', play);
+    heroSlides.addEventListener('focusin', (e) => { if (e.target.matches(':focus-visible')) pause(); });
+    heroSlides.addEventListener('focusout', play);
+    document.addEventListener('visibilitychange', () => (document.hidden ? pause() : play()));
+    play();
+  }
+
   // Keep the footer year current
   $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 })();

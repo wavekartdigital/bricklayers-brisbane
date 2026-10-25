@@ -376,6 +376,24 @@ const faqs = [
   ['Do you offer free quotes?', 'Always. Send us your details and photos through our quote form and we\'ll arrange a free site visit.'],
 ];
 
+// Home banner: rotating service headlines (the first one is the page's H1). All are in the HTML, so search engines read every one.
+const heroSlides = [
+  { eyebrow: "Brisbane's family-owned bricklayers", title: 'Quality Brickwork That Stands the Test of Time',
+    text: `Retaining walls, feature walls, repointing and new builds across Brisbane. Licensed &amp; insured, with ${site.years} years of experience.` },
+  { eyebrow: 'Retaining walls Brisbane', title: 'Engineered Retaining Walls Built to Hold',
+    text: 'Core-filled block retaining walls with proper drainage, turning sloping yards into usable, level space.', slug: 'retaining-feature-walls', link: 'Retaining & feature walls' },
+  { eyebrow: 'Brick repointing Brisbane', title: 'Repointing That Restores Strength and Looks',
+    text: 'We rake out crumbling mortar and repoint to stop water damage and make tired brickwork look new again.', slug: 're-pointing', link: 'Brick repointing' },
+  { eyebrow: 'Brick & block laying', title: 'Brick and Block Laid Straight, Level and to Spec',
+    text: 'Structural and decorative brick and blockwork for homes, extensions and commercial builds.', slug: 'brick-block', link: 'Brick & block' },
+  { eyebrow: 'New homes & developments', title: 'Bricklaying for New Homes and Townhouses',
+    text: 'Reliable crews for builders and developers across South East Queensland, on schedule and to engineering.', slug: 'homes-developments', link: 'Homes & developments' },
+  { eyebrow: 'Wall repairs & make-safe', title: 'Damaged Walls Removed, Rebuilt or Made Safe',
+    text: 'Storm, impact or age damage handled safely, including insurance work, with rebuilds matched to your brickwork.', slug: 'wall-removal-repair', link: 'Wall repair & removal' },
+  { eyebrow: 'Pavers, steps & extensions', title: 'Pavers, Steps and Repairs That Blend Right In',
+    text: 'Paving, stairs and extensions matched to your existing brickwork, so new work looks like it was always there.', slug: 'existing-work-pavers', link: 'Existing work & pavers' },
+];
+
 const areas = [
   ['Redlands', ['Victoria Point', 'Cleveland', 'Capalaba', 'Redland Bay', 'Thornlands', 'Wellington Point', 'Ormiston', 'Alexandra Hills', 'Birkdale', 'Sheldon']],
   ['Brisbane Southside', ['Carindale', 'Mount Gravatt', 'Sunnybank', 'Wynnum', 'Manly', 'Holland Park', 'Coorparoo', 'Camp Hill', 'Rochedale', 'Eight Mile Plains']],
@@ -385,4 +403,4 @@ const areas = [
   ['Moreton Bay', ['North Lakes', 'Redcliffe', 'Strathpine', 'Caboolture', 'Narangba', 'Petrie']],
 ];
 
-module.exports = { site, services, categories, projects, reviews, whyUs, process, faqs, areas, img };
+module.exports = { site, services, categories, projects, reviews, heroSlides, whyUs, process, faqs, areas, img };
