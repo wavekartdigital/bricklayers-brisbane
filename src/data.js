@@ -26,7 +26,7 @@ const site = {
   qbcc: '[QBCC Lic. No.]',
   abn: '22 687 173 128',
   acn: '687 173 128',
-  projects: '[X]+',
+  projects: '176+',
   rating: '5.0',
   reviewCount: '6',
   hours: [
