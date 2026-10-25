@@ -37,7 +37,7 @@ const pageHero = ({ title, sub, image, crumb, extra = '', aside = '' }) => `
 const trustItems = [
   ['shield', 'QBCC Licensed', site.qbcc],
   ['check', 'Fully insured', 'Public liability cover'],
-  ['bricks', `${site.projects} projects`, 'Completed across SEQ'],
+  ['bricks', `${site.projects} projects`, `Built by our own crew over ${site.years} years`],
   ['award', `${site.years} years`, 'Family-owned experience'],
   ['clipboard', 'Free quotes', 'No obligation site visit'],
 ];
