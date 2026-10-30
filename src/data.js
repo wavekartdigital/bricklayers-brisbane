@@ -5,8 +5,8 @@
 // ─────────────────────────────────────────────────────────────
 const photos = require('./photos.json');
 const UPLOADS = 'https://bricklayersbrisbane.com.au/wp-content/uploads/';
-// Photos are hot-linked from the current WordPress site for now.
-// Before launch: download, convert to WebP and self-host under /assets/img/.
+// Photos are self-hosted in site/wp-content/uploads/ (same URLs as the old WordPress site).
+// To improve Core Web Vitals: convert to WebP at several sizes and add srcset.
 const img = (i) => UPLOADS + photos[i];
 
 const site = {

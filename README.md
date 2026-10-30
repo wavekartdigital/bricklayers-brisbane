@@ -48,7 +48,7 @@ To move to a PHP host instead, set `formProvider: 'php'` and rebuild.
 - **Address autocomplete:** set `mapsKey` in `src/data.js` (browser key, HTTP-referrer restricted, Places API).
 - **reCAPTCHA v3 (optional):** `recaptchaSiteKey` in data.js + `recaptcha_secret` in config.php. The honeypot, time-trap and rate limit are always on.
 - **Analytics / Search Console:** set `gaId` and `searchConsole` in data.js and rebuild. Submit `/sitemap.xml` in Search Console.
-- **Images:** photos are currently hot-linked from the existing WordPress uploads (full-size JPGs). For Core Web Vitals, download them, convert to WebP at ~1600/800/400px, add `srcset`, and self-host under `site/assets/img/`.
+- **Images:** photos are self-hosted in `site/wp-content/uploads/`, at the same URLs as the old WordPress site. For Core Web Vitals, convert to WebP at ~1600/800/400px and add `srcset`.
 - **Redirects:** add 301s from the old URLs (`/our-services/...`, `/our-work/`, `/about-us/`, `/contact-us/`, `/get-a-quote/`, the old `.php` pages) to the new ones so you keep existing rankings.
 - **Privacy policy:** the template at `/privacy/` needs reviewing.
 
