@@ -8,12 +8,13 @@ export DEBIAN_FRONTEND=noninteractive
 REPO=https://github.com/wavekartdigital/bricklayers-brisbane.git
 SRC=/opt/bricklayers-brisbane
 WEB=/var/www/bricklayers
+DOMAIN=bricklayersbrisbane.com.au
 
 [ "$(id -u)" = 0 ] || { echo "Please run as root."; exit 1; }
 
 echo "==> Packages"
 apt-get update -y
-apt-get install -y git curl rsync nginx php-fpm php-curl php-mbstring ufw
+apt-get install -y git curl rsync nginx php-fpm php-curl php-mbstring ufw certbot python3-certbot-nginx
 if ! command -v node >/dev/null || [ "$(node -p 'process.versions.node.split(".")[0]')" -lt 18 ]; then
   curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
   apt-get install -y nodejs
@@ -44,7 +45,7 @@ PHPSOCK=$(ls /run/php/php[0-9]*-fpm.sock | head -1)
 cat > /etc/nginx/sites-available/bricklayers <<EOF
 server {
     listen 80 default_server;
-    server_name _;
+    server_name $DOMAIN www.$DOMAIN;
     root $WEB;
     index index.html;
     client_max_body_size 25m;
@@ -72,4 +73,13 @@ ufw allow OpenSSH >/dev/null
 ufw allow 'Nginx Full' >/dev/null
 ufw --force enable >/dev/null
 
-echo "Done: http://$(curl -s https://api.ipify.org)"
+# The nginx config above is plain HTTP, so put the certificate back on every run.
+if [ -d "/etc/letsencrypt/live/$DOMAIN" ]; then
+  echo "==> SSL"
+  certbot install --nginx --cert-name "$DOMAIN" --redirect --non-interactive
+  echo "Done: https://$DOMAIN"
+else
+  echo "Done: http://$(curl -s https://api.ipify.org)"
+  echo "No SSL yet. Once the domain points here, accept the Let's Encrypt terms and run:"
+  echo "  certbot --nginx -d $DOMAIN -d www.$DOMAIN --redirect -m YOUR_EMAIL --agree-tos"
+fi
