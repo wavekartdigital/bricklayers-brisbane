@@ -51,3 +51,10 @@ To move to a PHP host instead, set `formProvider: 'php'` and rebuild.
 - **Images:** photos are currently hot-linked from the existing WordPress uploads (full-size JPGs). For Core Web Vitals, download them, convert to WebP at ~1600/800/400px, add `srcset`, and self-host under `site/assets/img/`.
 - **Redirects:** add 301s from the old URLs (`/our-services/...`, `/our-work/`, `/about-us/`, `/contact-us/`, `/get-a-quote/`, the old `.php` pages) to the new ones so you keep existing rankings.
 - **Privacy policy:** the template at `/privacy/` needs reviewing.
+
+## Hosting on a DigitalOcean droplet
+`deploy/setup.sh` installs or updates the site on Ubuntu 24.04 with nginx and PHP-FPM. It builds with `formProvider: 'php'` on the server only, and keeps `api/config.php` and `api/storage/` across updates. As root on the server:
+
+```
+curl -fsSL https://raw.githubusercontent.com/wavekartdigital/bricklayers-brisbane/main/deploy/setup.sh | bash
+```
