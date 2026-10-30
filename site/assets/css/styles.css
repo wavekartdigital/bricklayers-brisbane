@@ -540,7 +540,8 @@ a.contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg)
 .ftr-legal { border-top: 1px solid rgba(255, 255, 255, .1); padding-top: 20px; padding-bottom: 24px; font-size: .82rem; color: rgba(255, 255, 255, .55); }
 .ftr-legal p { margin: 0 0 4px; }
 .ftr-legal .credit { margin-top: 12px; font-size: .76rem; letter-spacing: .02em; }
-.credit-name { color: #fff; font-weight: 700; background: linear-gradient(transparent 62%, rgba(180, 71, 44, .7) 62%); padding: 0 2px; }
+.credit-name { color: #fff; font-weight: 700; background: linear-gradient(transparent 62%, rgba(180, 71, 44, .7) 62%); padding: 0 2px; text-decoration: none; }
+.credit-name:hover { color: var(--amber); }
 
 /* Sticky WhatsApp button: icon-only above the mobile bar, labelled pill on desktop */
 .wa-float { position: fixed; right: 16px; bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 89; display: inline-flex; align-items: center; gap: 8px; width: 52px; height: 52px; justify-content: center; border-radius: 999px; background: #25d366; color: #fff; text-decoration: none; font-weight: 700; font-size: .92rem; box-shadow: 0 8px 24px rgba(0, 0, 0, .25); transition: transform .2s, box-shadow .2s; }

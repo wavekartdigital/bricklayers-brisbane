@@ -35,7 +35,7 @@ const pageHero = ({ title, sub, image, crumb, extra = '', aside = '' }) => `
   </section>`;
 
 const trustItems = [
-  ['shield', 'QBCC Licensed', site.qbcc],
+  ['shield', 'QBCC Licensed', site.qbcc || 'Queensland licensed'],
   ['check', 'Fully insured', 'Public liability cover'],
   ['bricks', `${site.projects} projects`, `Built by our own crew over ${site.years} years`],
   ['award', `${site.years} years`, 'Family-owned experience'],
@@ -327,7 +327,7 @@ write('/about/', layout({
     <div class="wrap">
       ${sectionHead('Licensed & insured', 'Peace of mind on every job')}
       <div class="cred-grid">
-        <div class="cred reveal">${icon('shield')}<h3>QBCC Licensed</h3><p>Licence no. ${t(site.qbcc)}</p></div>
+        <div class="cred reveal">${icon('shield')}<h3>QBCC Licensed</h3><p>${site.qbcc ? `Licence no. ${esc(site.qbcc)}` : 'Licensed for building work in Queensland'}</p></div>
         <div class="cred reveal">${icon('check')}<h3>Fully insured</h3><p>Public liability insurance on every job.</p></div>
         <div class="cred reveal">${icon('award')}<h3>Workmanship guarantee</h3><p>${t('[Guarantee terms, e.g. 6-year workmanship warranty]')}</p></div>
         <div class="cred reveal">${icon('clipboard')}<h3>ABN</h3><p>${t(site.abn)}</p></div>
@@ -394,7 +394,7 @@ write('/quote/', layout({
         </div>
         ${ratingBadge()}
         <ul class="side-trust">
-          <li>${icon('shield')} QBCC licensed ${t(site.qbcc)}</li>
+          <li>${icon('shield')} QBCC licensed${site.qbcc ? ` ${esc(site.qbcc)}` : ''}</li>
           <li>${icon('check')} Fully insured</li>
           <li>${icon('award')} ${site.years} years' experience</li>
         </ul>

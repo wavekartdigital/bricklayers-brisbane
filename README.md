@@ -20,7 +20,7 @@ serve.js           ← local preview server (fakes the PHP API)
 
 ## Fill in placeholders
 Anything in `[square brackets]` shows with an amber highlight on the page. Replace these in `src/data.js`:
-- `qbcc`, `abn` (a directory lists ABN 22 687 173 128; verify it at abr.business.gov.au)
+- `qbcc`: leave blank to hide the licence number everywhere
 - `projects`, `rating`, `reviewCount`, `hours`
 - `googleProfile`, `googleReviewUrl`, `instagram`
 - Each project's `suburb`, `duration`, `quote`, plus the draft challenge/solution copy

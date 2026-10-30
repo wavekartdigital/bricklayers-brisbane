@@ -410,9 +410,9 @@ const footer = () => `
       </div>
     </div>
     <div class="wrap ftr-legal">
-      <p>© <span data-year>${new Date().getFullYear()}</span> ${site.legalName} · ABN ${t(site.abn)}${isPh(site.qbcc) ? '' : ` · QBCC Licence ${esc(site.qbcc)}`}</p>
+      <p>© <span data-year>${new Date().getFullYear()}</span> ${site.legalName} · ABN ${t(site.abn)}${site.qbcc ? ` · QBCC Licence ${esc(site.qbcc)}` : ''}</p>
       <p>Licensed &amp; fully insured · Servicing Brisbane, Redlands, Logan, Ipswich &amp; Moreton Bay</p>
-      <p class="credit">Designed by <span class="credit-name">Wavekart Digital</span></p>
+      <p class="credit">Designed by <a class="credit-name" href="https://wavekartdigital.com/" target="_blank" rel="noopener">Wavekart Digital</a></p>
     </div>
   </footer>
 

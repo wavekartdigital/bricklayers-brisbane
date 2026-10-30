@@ -24,7 +24,7 @@ const site = {
   postcode: '4165',
   geo: { lat: -27.5856, lng: 153.2958 },
   years: '30+',
-  qbcc: '[QBCC Lic. No.]',
+  qbcc: '', // QBCC licence number: shown across the site once filled in
   abn: '22 687 173 128',
   acn: '687 173 128',
   projects: '176+',
@@ -371,7 +371,7 @@ const faqs = [
   ['Do I need council approval?', 'Many small walls and repairs don\'t, but retaining walls over 1 metre, walls near buildings or boundaries and structural changes often need building approval and engineering. We\'ll advise you at the site visit and can work with your certifier or engineer.'],
   ['How high can a retaining wall be without an engineer?', 'As a general guide in Queensland, walls over 1 metre high, or within 1.5 metres of a building or another retaining wall, need engineering design and approval. Every site is different, so we check yours before quoting.'],
   ['What are the signs I need repointing?', 'Crumbling, cracked or missing mortar, loose bricks, plants growing in joints, or damp patches on internal walls are all signs your mortar is failing.'],
-  ['Are you licensed and insured?', `Yes. We\'re QBCC licensed (licence ${site.qbcc}) and carry full public liability insurance.`],
+  ['Are you licensed and insured?', `Yes. We\'re QBCC licensed${site.qbcc ? ` (licence ${site.qbcc})` : ''} and carry full public liability insurance.`],
   ['Which areas do you service?', 'All of Brisbane plus the Redlands, Logan, Ipswich and Moreton Bay regions. See the service area list above or just ask.'],
   ['Do you offer free quotes?', 'Always. Send us your details and photos through our quote form and we\'ll arrange a free site visit.'],
 ];
