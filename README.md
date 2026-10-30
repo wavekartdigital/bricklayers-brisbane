@@ -53,6 +53,8 @@ To move to a PHP host instead, set `formProvider: 'php'` and rebuild.
 - **Privacy policy:** the template at `/privacy/` needs reviewing.
 
 ## Hosting on a DigitalOcean droplet
+DigitalOcean blocks outbound SMTP, so form email goes through [Resend](https://resend.com): verify the domain there, then set `resend_api_key` in `api/config.php` on the server.
+
 `deploy/setup.sh` installs or updates the site on Ubuntu 24.04 with nginx and PHP-FPM. It builds with `formProvider: 'php'` on the server only, and keeps `api/config.php` and `api/storage/` across updates. As root on the server:
 
 ```

@@ -9,6 +9,9 @@ return [
     'business_phone'   => '0431 138 393',
     'reviews_url'      => '',  // Google Business Profile reviews link, used in the confirmation email
 
+    // Resend API key: sends email over HTTPS. Blank uses PHP mail(), which needs a mail server and open SMTP ports.
+    'resend_api_key'   => '',
+
     // reCAPTCHA v3 (optional: honeypot, time-trap and rate limit are always on)
     'recaptcha_secret' => '',
     'recaptcha_min_score' => 0.5,

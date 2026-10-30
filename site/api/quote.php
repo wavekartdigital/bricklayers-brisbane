@@ -163,7 +163,40 @@ function table(array $rows): string {
     }
     return $out . '</table>';
 }
+// Sends through the Resend API (HTTPS), for hosts that block outbound SMTP.
+function send_resend(string $to, string $subject, string $html, array $cfg, string $replyTo, array $files, string $cc): bool {
+    $payload = [
+        'from' => header_safe($cfg['business_name']) . ' <' . $cfg['from_email'] . '>',
+        'to' => [$to],
+        'subject' => header_safe($subject),
+        'html' => $html,
+    ];
+    if ($replyTo) { $payload['reply_to'] = header_safe($replyTo); }
+    if ($cc) { $payload['cc'] = [header_safe($cc)]; }
+    if ($files) {
+        $payload['attachments'] = array_map(fn($f) => ['filename' => $f['name'], 'content' => base64_encode($f['data'])], $files);
+    }
+    $ch = curl_init('https://api.resend.com/emails');
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 20,
+        CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $cfg['resend_api_key'], 'Content-Type: application/json'],
+        CURLOPT_POSTFIELDS => json_encode($payload),
+    ]);
+    $res = curl_exec($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    if ($code < 200 || $code >= 300) {
+        error_log("Resend failed ($code): " . substr((string) $res, 0, 300));
+        return false;
+    }
+    return true;
+}
 function send_mail(string $to, string $subject, string $html, array $cfg, string $replyTo = '', array $files = [], string $cc = ''): bool {
+    if (!empty($cfg['resend_api_key'])) {
+        return send_resend($to, $subject, $html, $cfg, $replyTo, $files, $cc);
+    }
     $boundary = 'bb_' . bin2hex(random_bytes(8));
     $headers = [
         'MIME-Version: 1.0',

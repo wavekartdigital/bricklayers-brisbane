@@ -319,7 +319,7 @@ const header = (path) => `
   <a class="skip" href="#main">Skip to content</a>
   <div class="topbar">
     <div class="wrap tb">
-      <p class="tb-area">${icon('pin')}<span>${site.suburb} ${site.state} · Servicing Brisbane, Redlands, Logan, Ipswich &amp; Moreton Bay</span></p>
+      <p class="tb-area">${icon('pin')}<span>${site.suburb} ${site.state} · Servicing Brisbane &amp; South East Queensland</span></p>
       <ul class="tb-contact">
         <li><a href="${tel}">${icon('phone')}<span>${site.phone}</span></a></li>
         ${site.emails.map((e, i) => `<li class="tb-email${i ? ' tb-extra' : ''}"><a href="mailto:${e}" aria-label="Email ${e}">${icon('mail')}<span>${e}</span></a></li>`).join('')}
